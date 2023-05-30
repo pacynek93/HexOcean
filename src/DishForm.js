@@ -12,6 +12,8 @@ const DishForm = () => {
     slicesOfBread: "",
   });
 
+  const [preparationTimeError, setPreparationTimeError] = useState("");
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
@@ -20,6 +22,13 @@ const DishForm = () => {
       formattedValue = formattedValue
         .replace(/(\d{2})(\d)/, "$1:$2")
         .replace(/(\d{2})(\d)/, "$1:$2");
+
+      const maxTime = "23:59:59";
+      if (value > maxTime) {
+        setPreparationTimeError("Preparation Time cannot exceed 23:59:59");
+      } else {
+        setPreparationTimeError("");
+      }
 
       setFormValues((prevState) => ({
         ...prevState,
@@ -108,6 +117,7 @@ const DishForm = () => {
             pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}"
             required
           />
+          {preparationTimeError && <span>{preparationTimeError}</span>}
         </Form.Field>
         <Form.Field>
           <label htmlFor="type">Dish Type:</label>
