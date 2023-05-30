@@ -44,11 +44,6 @@ const DishForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (formValues.name.length < 3) {
-      console.error("Dish Name must have at least 3 characters.");
-      return;
-    }
-
     const formData = {
       name: formValues.name,
       preparation_time: formValues.preparationTime,
@@ -96,6 +91,7 @@ const DishForm = () => {
             id="name"
             name="name"
             value={formValues.name}
+            minLength={3}
             onChange={handleInputChange}
             required
           />
